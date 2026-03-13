@@ -104,7 +104,18 @@ z-index:-1;
 }
 
 .hero-inner{
-transform:translateY(-140px);
+text-align:center;
+}
+
+.hero-inner h1{
+font-size:80px;
+letter-spacing:0.2em;
+}
+
+.hero-sub{
+font-size:28px;
+letter-spacing:0.4em;
+margin-top:20px;
 }
 
 /* container */
