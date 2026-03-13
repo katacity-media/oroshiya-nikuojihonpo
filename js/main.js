@@ -1,120 +1,111 @@
 gsap.registerPlugin(ScrollTrigger)
 
-/* LENIS smooth scroll */
+
+
+/* loader */
+
+window.addEventListener("load",()=>{
+
+gsap.to("#loader",{
+
+opacity:0,
+duration:1,
+delay:1,
+
+onComplete:()=>{
+
+document.getElementById("loader").style.display="none"
+
+}
+
+})
+
+})
+
+
+
+/* smooth scroll */
 
 const lenis = new Lenis()
 
-function raf(time) {
+function raf(time){
 
 lenis.raf(time)
+
 requestAnimationFrame(raf)
 
 }
 
 requestAnimationFrame(raf)
+
 
 
 /* split text */
 
-function splitText(selector){
+const split = new SplitType(".split",{types:"chars"})
 
-document.querySelectorAll(selector).forEach(el=>{
 
-const text = el.innerText
 
-el.innerHTML=""
+gsap.from(".char",{
 
-text.split("").forEach(letter=>{
-
-const span=document.createElement("span")
-
-span.textContent=letter
-
-el.appendChild(span)
+opacity:0,
+y:60,
+stagger:0.04,
+duration:0.8
 
 })
 
-})
-
-}
-
-splitText(".split")
 
 
-/* text animation */
+/* hero parallax */
 
-gsap.utils.toArray(".split").forEach(el=>{
-
-gsap.to(el.querySelectorAll("span"),{
-
-y:0,
-opacity:1,
-
-stagger:0.05,
-
-duration:1,
+gsap.to(".hero-image",{
 
 scrollTrigger:{
 
-trigger:el,
-start:"top 80%"
+trigger:".hero",
+scrub:true
 
-}
+},
+
+y:-200
 
 })
 
-})
 
 
-/* fade sections */
+/* section fade */
 
-gsap.utils.toArray(".section").forEach(section=>{
+gsap.utils.toArray("section").forEach(section=>{
 
 gsap.from(section,{
 
-opacity:0,
-y:100,
-
-duration:1.2,
-
 scrollTrigger:{
-
 trigger:section,
-start:"top 85%"
-
-}
-
-})
-
-})
-
-
-/* parallax images */
-
-gsap.utils.toArray(".parallax").forEach(el=>{
-
-gsap.to(el,{
-
-y:-100,
-
-scrollTrigger:{
-
-trigger:el,
-scrub:true
-
-}
-
-})
-
-})
-
-
-/* hero animation */
-
-gsap.from(".hero-inner",{
+start:"top 80%"
+},
 
 opacity:0,
 y:80,
-duration:1.5
+duration:1
+
+})
+
+})
+
+
+
+/* card animation */
+
+gsap.from(".card",{
+
+scrollTrigger:{
+trigger:".cards",
+start:"top 80%"
+},
+
+y:100,
+opacity:0,
+stagger:0.2
 
 })
