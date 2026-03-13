@@ -1,26 +1,5 @@
 gsap.registerPlugin(ScrollTrigger)
 
-
-
-/* loader */
-
-window.addEventListener("load",()=>{
-
-gsap.to("#loader",{
-opacity:0,
-duration:1,
-delay:1,
-
-onComplete:()=>{
-document.getElementById("loader").style.display="none"
-}
-
-})
-
-})
-
-
-
 /* smooth scroll */
 
 const lenis = new Lenis()
@@ -110,6 +89,8 @@ y:80,
 stagger:0.2
 
 })
+
+/* loader */
 window.addEventListener("load",()=>{
 
 gsap.to("#loader",{
