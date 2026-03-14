@@ -141,18 +141,61 @@ overflow:hidden;
 background:#000;
 }
 
-/* sticker */
+/* sticker scroll section */
+
+.parallax{
+height:260px;
+overflow:hidden;
+background:#000;
+position:relative;
+display:flex;
+align-items:center;
+}
+
+/* 横スクロールレイヤー */
+
+.sticker-layer{
+
+display:flex;
+gap:60px;
+
+width:max-content;
+
+animation:stickerScroll 35s linear infinite;
+
+}
+
+/* ステッカー */
 
 .sticker{
-position:absolute;
-width:320px;
+
+height:160px;
+flex-shrink:0;
+
 cursor:pointer;
-filter:drop-shadow(0 15px 25px rgba(0,0,0,0.6));
 transition:0.3s;
+
+filter:drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+
 }
 
 .sticker:hover{
-transform:scale(1.08);
+transform:scale(1.1);
+}
+
+
+/* 無限横スクロール */
+
+@keyframes stickerScroll{
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-50%);
+}
+
 }
 
 /* random layout */
