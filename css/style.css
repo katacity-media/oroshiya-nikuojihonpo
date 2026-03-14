@@ -123,7 +123,7 @@ margin:auto;
 /* about */
 
 .about{
-padding:200px 0;
+padding:170px 0;
 background:#111;
 }
 
@@ -136,7 +136,7 @@ margin-bottom:40px;
 /* sticker scroll section */
 
 .parallax{
-height:260px;
+height:300px;
 background:#000;
 overflow:hidden;
 display:flex;
@@ -156,7 +156,7 @@ animation:stickerScroll 80s linear infinite;
 
 .sticker{
 
-height:160px;
+height:120px;
 flex-shrink:0;
 
 cursor:pointer;
