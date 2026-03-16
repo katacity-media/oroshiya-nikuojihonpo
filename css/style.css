@@ -108,36 +108,25 @@ transform:translateY(-60px);
 font-family:"Zen Old Mincho",serif;
 font-weight:900;
 
-font-size:110px;
-letter-spacing:0.18em;
-
-/* 光沢グラデーション */
+font-size:140px;
+letter-spacing:0.12em;
 
 background:linear-gradient(
 180deg,
 #ffffff 0%,
-#f5f5f5 35%,
-#eaeaea 55%,
+#f1f1f1 40%,
+#e0e0e0 55%,
 #ffffff 100%
 );
 
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 
-/* 光 */
-
 text-shadow:
-0 0 6px rgba(255,255,255,0.35),
-0 0 18px rgba(255,255,255,0.15);
+0 6px 20px rgba(0,0,0,0.6),
+0 0 6px rgba(255,255,255,0.2);
 
-/* 輪郭補助 */
-
--webkit-text-stroke:0.5px rgba(255,255,255,0.25);
-
-filter:drop-shadow(0 6px 12px rgba(0,0,0,0.45));
-
-opacity:0;
-transform:scale(0.8);
+-webkit-text-stroke:0.6px rgba(255,255,255,0.25);
 
 }
 
@@ -146,21 +135,22 @@ transform:scale(0.8);
 font-family:"Zen Old Mincho",serif;
 font-weight:700;
 
-font-size:60px;
-letter-spacing:0.35em;
+font-size:75px;
 
-margin-top:25px;
-
-color:#fff;
+letter-spacing:0.22em;
+margin-top:10px;
 
 text-shadow:
-0 0 6px rgba(255,255,255,0.25);
-
-opacity:0;
-transform:translateY(30px);
+0 6px 16px rgba(0,0,0,0.7);
 
 }
-
+.hero-overlay{
+background:linear-gradient(
+180deg,
+rgba(0,0,0,0.2) 0%,
+rgba(0,0,0,0.55) 100%
+);
+}
 /* container */
 
 .container{
