@@ -108,7 +108,7 @@ transform:translateY(-60px);
 font-family:"Zen Old Mincho",serif;
 font-weight:900;
 
-font-size:140px;
+font-size:130px;
 letter-spacing:0.12em;
 
 background:linear-gradient(
@@ -139,6 +139,17 @@ font-size:75px;
 
 letter-spacing:0.22em;
 margin-top:10px;
+
+background:linear-gradient(
+180deg,
+#ffffff 0%,
+#f1f1f1 40%,
+#e0e0e0 55%,
+#ffffff 100%
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 
 text-shadow:
 0 6px 16px rgba(0,0,0,0.7);
