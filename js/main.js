@@ -19,13 +19,16 @@ window.addEventListener("load", () => {
   const tl = gsap.timeline()
 
   /* キャラ走る */
-tl.to(".loader-character", {
-  x: -window.innerWidth * 0.5,
-  duration: 1.2
+gsap.set(".loader-character", {
+  x: window.innerWidth + 200
+})
+  tl.to(".loader-character", {
+  x: window.innerWidth * 0.3,
+  duration: 1.5
 })
 .to(".loader-character", {
-  x: -window.innerWidth - 300,
-  duration: 1.3
+  x: -300,
+  duration: 1.8
 })
   /* ローダー消える */
   .to("#loader", {
