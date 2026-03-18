@@ -46,7 +46,7 @@ left:0; /* ← 戻す */
 
 /* 子：ぴょこぴょこ用（CSS） */
 .chibi-inner{
-animation: run 0.5s infinite alternate;
+animation: run 0.35s infinite alternate;
 }
 
 .chibi-inner img{
