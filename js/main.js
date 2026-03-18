@@ -117,7 +117,6 @@ window.addEventListener("DOMContentLoaded",()=>{
       end:"bottom top",
       scrub:true
     },
-    scale:1.35,
     y:-200
   })
 
