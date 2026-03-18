@@ -110,15 +110,16 @@ window.addEventListener("DOMContentLoaded",()=>{
 
   /* ================= scroll系 ================= */
 
-  gsap.to(".hero-bg",{
-    scrollTrigger:{
-      trigger:".hero",
-      start:"top top",
-      end:"bottom top",
-      scrub:true
-    },
-    y:-200
-  })
+gsap.to(".hero-bg",{
+  scrollTrigger:{
+    trigger:".hero",
+    start:"top top",
+    end:"+=100%",
+    scrub:1
+  },
+  scale:1.1,
+  y:-150
+})
 
   gsap.to(".hero-middle",{
     scrollTrigger:{
