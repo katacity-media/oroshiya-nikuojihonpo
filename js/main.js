@@ -31,8 +31,11 @@ ScrollTrigger.scrollerProxy(document.body,{
     }
   }
 })
+// ❌ 消す
+// ScrollTrigger.addEventListener("refresh", ()=> lenis.update())
 
-ScrollTrigger.addEventListener("refresh", ()=> lenis.update())
+// これだけ残す
+ScrollTrigger.refresh()
 
 /* ================= 初期位置 ================= */
 
