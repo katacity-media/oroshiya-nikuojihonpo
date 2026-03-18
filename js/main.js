@@ -24,11 +24,11 @@ gsap.set(".loader-character", {
 })
   tl.to(".loader-character", {
   x: window.innerWidth * 0.3,
-  duration: 1.5
+  duration: 2.2
 })
 .to(".loader-character", {
   x: -300,
-  duration: 1.8
+  duration: 2.2
 })
   /* ローダー消える */
   .to("#loader", {
