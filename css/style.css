@@ -36,7 +36,9 @@ margin-bottom:40px;
 font-size:20px;
 letter-spacing:2px;
 }
-
+.loader-character{
+opacity:0;
+}
 /* 親：横移動用（GSAP） */
 .loader-character{
 position:absolute;
