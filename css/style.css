@@ -41,7 +41,7 @@ letter-spacing:2px;
 .loader-character{
 position:absolute;
 bottom:60px;
-left:-200px;
+right:-200px;
 }
 
 /* 子：ぴょこぴょこ用（CSS） */
