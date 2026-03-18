@@ -109,28 +109,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ===== scroll系はここで発火 ===== */
 
-  /* hero scroll zoom */
-  gsap.to(".hero-bg",{
-    scrollTrigger:{
-      trigger:".hero",
-      start:"top top",
-      end:"bottom top",
-      scrub:true
-    },
-    scale:1.35,
-    y:-200
-  })
 
-  /* hero parallax */
-  gsap.to(".hero-middle",{
-    scrollTrigger:{
-      trigger:".hero",
-      start:"top top",
-      end:"bottom top",
-      scrub:true
-    },
-    y:-150
-  })
+
+/* hero scroll zoom */
+gsap.to(".hero-bg",{
+  scrollTrigger:{
+    trigger:".hero",
+    start:"top top",
+    end:"bottom top",
+    scrub:true,
+    invalidateOnRefresh:true
+  },
+  scale:1.35,
+  y:-200
+})
+
+/* hero parallax */
+gsap.to(".hero-middle",{
+  scrollTrigger:{
+    trigger:".hero",
+    start:"top top",
+    end:"bottom top",
+    scrub:true,
+    invalidateOnRefresh:true
+  },
+  y:-150
+})
 
   /* cards */
   gsap.from(".card",{
