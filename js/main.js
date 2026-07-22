@@ -1,43 +1,56 @@
 gsap.registerPlugin(ScrollTrigger)
 
 /* ================= Lenis ================= */
-
+// v1系はオプション名が変更されているため修正(smooth→自動、smoothWheelがデフォルトtrue)
 const lenis = new Lenis({
-  duration: 1.2,
-  smooth: true
+  duration: 1.2
 })
-
 lenis.on("scroll", ScrollTrigger.update)
 
-// 🔥 ここが最重要（完全同期）
+// 完全同期
 gsap.ticker.add((time)=>{
   lenis.raf(time * 1000)
 })
 gsap.ticker.lagSmoothing(0)
 
-/* ================= 初期位置 ================= */
+/* ================= ローダー安全装置 =================
+   CDN読み込み失敗などでアニメが動かない場合に備え、
+   一定時間経過で強制的にローダーを消す */
+const loaderFailSafe = setTimeout(()=>{
+  const loaderEl = document.getElementById("loader")
+  if(loaderEl){
+    loaderEl.style.display = "none"
+  }
+}, 6000)
 
+/* ================= 初期位置 ================= */
 gsap.set(".loader-character",{
   x: window.innerWidth + 500,
   opacity:1
 })
 
 /* ================= DOM読み込み後 ================= */
-
 window.addEventListener("DOMContentLoaded",()=>{
 
-  const tl = gsap.timeline()
+  const isMobile = window.innerWidth <= 768
+  const loaderStep1 = isMobile ? 1.1 : 2.2
+  const loaderStep2 = isMobile ? 1.4 : 2.8
+
+  const tl = gsap.timeline({
+    onComplete:()=>{
+      clearTimeout(loaderFailSafe)
+    }
+  })
 
   /* ===== loader ===== */
-
   tl.to(".loader-character",{
     x: window.innerWidth * 0.4,
-    duration:2.2,
+    duration: loaderStep1,
     ease:"power1.inOut"
   })
   .to(".loader-character",{
     x:-600,
-    duration:2.8,
+    duration: loaderStep2,
     ease:"power1.in"
   })
   .to("#loader",{
@@ -49,9 +62,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   })
 
   /* ===== text ===== */
-
   new SplitType(".split",{types:"chars"})
-
   gsap.from(".char",{
     y:60,
     opacity:0,
@@ -61,13 +72,11 @@ window.addEventListener("DOMContentLoaded",()=>{
   })
 
   /* ===== hero 初期 ===== */
-
-  gsap.set(".hero-bg",{opacity:0, scale:1}) // ←ここも修正
+  gsap.set(".hero-bg",{opacity:0, scale:1})
   gsap.set(".hero-year",{opacity:0, scale:0.8})
   gsap.set(".hero-tag",{opacity:0, y:40})
 
   /* ===== hero 登場 ===== */
-
   tl.to(".hero-bg",{
     opacity:1,
     scale:1,
@@ -88,15 +97,14 @@ window.addEventListener("DOMContentLoaded",()=>{
   },"-=0.6")
 
   /* ================= scroll系 ================= */
-
   gsap.to(".hero-bg",{
     scrollTrigger:{
       trigger:".hero",
       start:"top top",
-      end:"bottom top", // ←ここも修正
+      end:"bottom top",
       scrub:1
     },
-    scale:1.08, // ←軽くした
+    scale:1.08,
     y:-120
   })
 
@@ -105,7 +113,7 @@ window.addEventListener("DOMContentLoaded",()=>{
       trigger:".hero",
       start:"top top",
       end:"bottom top",
-      scrub:1 // ←統一
+      scrub:1
     },
     y:-120
   })
@@ -123,31 +131,51 @@ window.addEventListener("DOMContentLoaded",()=>{
   })
 
   ScrollTrigger.refresh()
-
 })
 
-/* ================= lightbox ================= */
+/* ================= ヘッダー:スクロールで背景を付ける ================= */
+const headerEl = document.querySelector(".header")
+window.addEventListener("scroll",()=>{
+  if(window.scrollY > 60){
+    headerEl.classList.add("scrolled")
+  }else{
+    headerEl.classList.remove("scrolled")
+  }
+})
 
-const stickers = document.querySelectorAll(".sticker")
-const lightbox = document.getElementById("lightbox")
-const lightboxImg = document.getElementById("lightbox-img")
+/* ================= ハンバーガーメニュー ================= */
+const menuBtn = document.getElementById("menuBtn")
+const nav = document.getElementById("nav")
 
-stickers.forEach(sticker=>{
-  sticker.addEventListener("click",()=>{
+menuBtn.addEventListener("click",()=>{
+  menuBtn.classList.toggle("active")
+  nav.classList.toggle("open")
+})
 
-    lightboxImg.src = sticker.src
-    lightbox.classList.add("active")
-
-    gsap.fromTo(lightboxImg,
-      {scale:0.8, opacity:0},
-      {scale:1, opacity:1, duration:0.5}
-    )
-
+// メニュー内リンクを押したら自動で閉じる
+nav.querySelectorAll("a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    menuBtn.classList.remove("active")
+    nav.classList.remove("open")
   })
 })
 
-lightbox.addEventListener("click",()=>{
+/* ================= lightbox ================= */
+const stickers = document.querySelectorAll(".sticker")
+const lightbox = document.getElementById("lightbox")
+const lightboxImg = document.getElementById("lightbox-img")
+const lightboxClose = document.getElementById("lightbox-close")
 
+function openLightbox(src){
+  lightboxImg.src = src
+  lightbox.classList.add("active")
+  gsap.fromTo(lightboxImg,
+    {scale:0.8, opacity:0},
+    {scale:1, opacity:1, duration:0.5}
+  )
+}
+
+function closeLightbox(){
   gsap.to(lightboxImg,{
     scale:0.8,
     opacity:0,
@@ -156,5 +184,27 @@ lightbox.addEventListener("click",()=>{
       lightbox.classList.remove("active")
     }
   })
+}
 
+stickers.forEach(sticker=>{
+  sticker.addEventListener("click",()=>{
+    openLightbox(sticker.src)
+  })
+})
+
+// 背景クリックで閉じる(ただし画像自体のクリックは除外)
+lightbox.addEventListener("click",(e)=>{
+  if(e.target === lightbox){
+    closeLightbox()
+  }
+})
+
+// ✕ボタンで閉じる
+lightboxClose.addEventListener("click", closeLightbox)
+
+// Escキーで閉じる(スマホ以外でも便利)
+window.addEventListener("keydown",(e)=>{
+  if(e.key === "Escape" && lightbox.classList.contains("active")){
+    closeLightbox()
+  }
 })
