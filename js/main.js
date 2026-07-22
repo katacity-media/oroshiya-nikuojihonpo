@@ -133,6 +133,14 @@ window.addEventListener("DOMContentLoaded",()=>{
   ScrollTrigger.refresh()
 })
 
+/* ================= 画像読み込み完了後に高さを再計算 =================
+   DOMContentLoadedの時点ではまだ画像(特にstickerやhero)の読み込みが
+   終わっておらず、高さの計算がズレて表示が半分になる等の不具合が
+   起きていたため、全アセット読み込み完了後にもう一度refreshする */
+window.addEventListener("load",()=>{
+  ScrollTrigger.refresh()
+})
+
 /* ================= ヘッダー:スクロールで背景を付ける ================= */
 const headerEl = document.querySelector(".header")
 window.addEventListener("scroll",()=>{
