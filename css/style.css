@@ -7,11 +7,19 @@ padding:0;
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 font-family:serif;
 background:#0b0b0b;
 color:white;
 overflow-x:hidden;
+}
+
+h2, .logo{
+font-family:"Zen Old Mincho",serif;
 }
 
 /* ================= loader ================= */
@@ -44,7 +52,6 @@ left:0;
 opacity:0;
 }
 
-/* 子：ぴょこぴょこ用（CSS） */
 .chibi-inner{
 animation: run 0.35s infinite alternate;
 }
@@ -69,9 +76,25 @@ width:100%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:30px 80px;
+padding:24px 80px;
 z-index:1000;
 transition:0.3s;
+}
+
+/* スクロール時に背景をつけて視認性UP(JSでheader-scrolledクラスを付与) */
+.header.scrolled{
+background:rgba(11,11,11,0.85);
+backdrop-filter:blur(6px);
+padding:14px 80px;
+}
+
+.logo{
+font-size:18px;
+letter-spacing:0.05em;
+}
+
+.header nav{
+display:flex;
 }
 
 .header nav a{
@@ -79,6 +102,42 @@ margin-left:30px;
 color:white;
 text-decoration:none;
 font-size:14px;
+letter-spacing:0.05em;
+}
+
+.header nav a:hover{
+opacity:0.6;
+}
+
+/* ハンバーガーボタン(PCでは非表示) */
+.menu-btn{
+display:none;
+flex-direction:column;
+justify-content:space-between;
+width:28px;
+height:20px;
+background:none;
+border:none;
+cursor:pointer;
+z-index:1100;
+}
+
+.menu-btn span{
+display:block;
+height:2px;
+width:100%;
+background:white;
+transition:0.3s;
+}
+
+.menu-btn.active span:nth-child(1){
+transform:translateY(9px) rotate(45deg);
+}
+.menu-btn.active span:nth-child(2){
+opacity:0;
+}
+.menu-btn.active span:nth-child(3){
+transform:translateY(-9px) rotate(-45deg);
 }
 
 /* ================= hero ================= */
@@ -104,7 +163,7 @@ background-repeat:no-repeat;
 
 .hero-bg{
 background-image:url("../images/hero.jpg");
-background-size:100vw auto;
+background-size:cover;
 background-position:center top;
 z-index:-3;
 }
@@ -128,14 +187,15 @@ z-index:-1;
 .hero-inner{
 text-align:center;
 transform:translateY(-60px);
+padding:0 20px;
 }
 
-/* HERO TITLE */
+/* HERO TITLE(clampで画面幅に応じて可変) */
 
 .hero-year{
 font-family:"Zen Old Mincho",serif;
 font-weight:900;
-font-size:130px;
+font-size:clamp(56px, 12vw, 130px);
 letter-spacing:0.12em;
 
 background:linear-gradient(
@@ -159,7 +219,7 @@ text-shadow:
 .hero-tag{
 font-family:"Zen Old Mincho",serif;
 font-weight:700;
-font-size:75px;
+font-size:clamp(28px, 7vw, 75px);
 letter-spacing:0.22em;
 margin-top:10px;
 
@@ -196,6 +256,12 @@ background:#111;
 .about h2{
 font-size:40px;
 margin-bottom:40px;
+}
+
+.about p{
+line-height:1.9;
+font-size:16px;
+color:#e6e6e6;
 }
 
 /* ================= sticker ================= */
@@ -238,6 +304,10 @@ padding:200px 0;
 background:#0e0e0e;
 }
 
+.services h2{
+font-size:40px;
+}
+
 .cards{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -248,6 +318,7 @@ margin-top:80px;
 .card-img{
 height:300px;
 overflow:hidden;
+border-radius:4px;
 }
 
 .card-img img{
@@ -263,6 +334,7 @@ transform:scale(1.1);
 
 .card h3{
 margin-top:15px;
+font-size:18px;
 transition:0.3s;
 }
 
@@ -277,11 +349,39 @@ padding:200px 0;
 background:#111;
 }
 
+.news h2{
+font-size:40px;
+margin-bottom:40px;
+}
+
 .news li{
 list-style:none;
 display:flex;
+align-items:center;
 gap:20px;
 margin-bottom:20px;
+font-size:15px;
+}
+
+.news-date{
+background:#fff;
+color:#0b0b0b;
+font-size:12px;
+padding:4px 12px;
+border-radius:999px;
+flex-shrink:0;
+}
+
+/* ================= access ================= */
+
+.access{
+padding:200px 0;
+background:#0e0e0e;
+}
+
+.access h2{
+font-size:40px;
+margin-bottom:30px;
 }
 
 /* ================= footer ================= */
@@ -290,6 +390,8 @@ footer{
 padding:100px;
 text-align:center;
 background:#000;
+font-size:14px;
+letter-spacing:0.1em;
 }
 
 /* ================= lightbox ================= */
@@ -327,4 +429,137 @@ pointer-events:auto;
 
 #lightbox.active img{
 transform:scale(1);
+}
+
+#lightbox-close{
+position:absolute;
+top:30px;
+right:30px;
+background:none;
+border:none;
+color:white;
+font-size:36px;
+line-height:1;
+cursor:pointer;
+}
+
+/* =========================================================
+   ここから下がレスポンシブ対応(スマホ・タブレット崩れ修正)
+   ========================================================= */
+
+/* タブレット */
+@media (max-width:1024px){
+
+.container{
+width:92%;
+}
+
+.about, .services, .news, .access{
+padding:120px 0;
+}
+
+.cards{
+gap:30px;
+}
+
+}
+
+/* スマホ */
+@media (max-width:768px){
+
+.header{
+padding:18px 24px;
+}
+
+.header.scrolled{
+padding:12px 24px;
+}
+
+/* ハンバーガー表示、通常navは隠す */
+.menu-btn{
+display:flex;
+}
+
+.header nav{
+position:fixed;
+top:0;
+right:0;
+height:100vh;
+width:70%;
+max-width:280px;
+background:rgba(11,11,11,0.97);
+flex-direction:column;
+justify-content:center;
+align-items:flex-start;
+padding:40px;
+gap:24px;
+transform:translateX(100%);
+transition:transform 0.35s ease;
+}
+
+.header nav.open{
+transform:translateX(0);
+}
+
+.header nav a{
+margin-left:0;
+font-size:18px;
+}
+
+.about, .services, .news, .access{
+padding:90px 0;
+}
+
+.about h2, .services h2, .news h2, .access h2{
+font-size:30px;
+margin-bottom:24px;
+}
+
+.about p{
+font-size:15px;
+}
+
+/* カードは1カラムに */
+.cards{
+grid-template-columns:1fr;
+gap:40px;
+margin-top:50px;
+}
+
+.card-img{
+height:220px;
+}
+
+.news li{
+align-items:flex-start;
+font-size:14px;
+}
+
+footer{
+padding:60px 24px;
+}
+
+#lightbox-close{
+top:16px;
+right:16px;
+font-size:30px;
+}
+
+}
+
+/* 小さいスマホ */
+@media (max-width:380px){
+
+.hero-year{
+letter-spacing:0.06em;
+}
+
+.hero-tag{
+letter-spacing:0.12em;
+}
+
+.card-img{
+height:180px;
+}
+
 }
