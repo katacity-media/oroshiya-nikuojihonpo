@@ -7,8 +7,20 @@ padding:0;
 box-sizing:border-box;
 }
 
-html{
-scroll-behavior:smooth;
+/* Lenis(スムーズスクロール)を使う場合、htmlに scroll-behavior:smooth を
+   指定するとLenis側の計算と二重に働いてしまい、初回表示のズレ(スクロールが
+   半分だけ表示される等)の原因になるため入れない */
+
+html.lenis, html.lenis body{
+height:auto;
+}
+
+.lenis.lenis-smooth{
+scroll-behavior:auto !important;
+}
+
+.lenis.lenis-stopped{
+overflow:hidden;
 }
 
 body{
@@ -409,9 +421,10 @@ align-items:center;
 justify-content:center;
 
 opacity:0;
+visibility:hidden; /* opacity:0だけだと環境によって薄く残ることがあるため二重で隠す */
 pointer-events:none;
 
-transition:0.3s;
+transition:opacity 0.3s, visibility 0.3s;
 z-index:9999;
 }
 
@@ -424,6 +437,7 @@ transition:0.4s;
 
 #lightbox.active{
 opacity:1;
+visibility:visible;
 pointer-events:auto;
 }
 
@@ -431,16 +445,23 @@ pointer-events:auto;
 transform:scale(1);
 }
 
+/* ×ボタン:画面幅に応じてclampで滑らかに可変(PC/スマホで別々に指定しない) */
 #lightbox-close{
 position:absolute;
-top:30px;
-right:30px;
+top:clamp(14px, 3vw, 30px);
+right:clamp(14px, 3vw, 30px);
+width:44px;
+height:44px;
+display:flex;
+align-items:center;
+justify-content:center;
 background:none;
 border:none;
 color:white;
-font-size:36px;
+font-size:clamp(26px, 4vw, 36px);
 line-height:1;
 cursor:pointer;
+z-index:10000;
 }
 
 /* =========================================================
@@ -537,12 +558,6 @@ font-size:14px;
 
 footer{
 padding:60px 24px;
-}
-
-#lightbox-close{
-top:16px;
-right:16px;
-font-size:30px;
 }
 
 }
