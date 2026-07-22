@@ -261,7 +261,7 @@ margin:auto;
 /* ================= about ================= */
 
 .about{
-padding:170px 0;
+padding:130px 0 100px;
 background:#111;
 }
 
@@ -279,11 +279,17 @@ color:#e6e6e6;
 /* ================= sticker ================= */
 
 .parallax{
-height:300px;
 background:#000;
 overflow:hidden;
-display:flex;
-align-items:center;
+padding:50px 0 60px;
+}
+
+.parallax-label{
+text-align:center;
+font-size:14px;
+letter-spacing:0.15em;
+color:#999;
+margin-bottom:30px;
 }
 
 .sticker-layer{
